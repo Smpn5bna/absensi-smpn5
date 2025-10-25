@@ -573,8 +573,8 @@
                                     <p class="text-xs mb-2 font-semibold">SEBELUM (Default):</p>
                                     <div class="bg-gray-100 p-2 rounded font-mono text-xs">
                                         <div>const SHEETS_CONFIG = {</div>
-                                        <div class="ml-4">spreadsheetId: '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318',</div>
-                                        <div class="ml-4">apiKey: 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg',</div>
+                                        <div class="ml-4">spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',</div>
+                                        <div class="ml-4">apiKey: 'AIzaSyBnNkZ2-e0d4GsX0E31ZbX3nokmqNHoQHU',</div>
                                         <div>};</div>
                                     </div>
                                     
@@ -944,10 +944,8 @@ Siti Nurhaliza Putri	7-2
         
         // Google Sheets Config untuk Sinkronisasi
         const SHEETS_CONFIG = {
-            // GANTI DENGAN DATA ANDA SENDIRI!
-            // Contoh ID (TIDAK VALID): 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms
+            // Konfigurasi Google Sheets Anda
             spreadsheetId: '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318',
-            // Contoh API Key (TIDAK VALID): AIzaSyBnNkZ2-e0d4GsX0E31ZbX3nokmqNHoQHU
             apiKey: 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg',
             apiUrl: 'https://sheets.googleapis.com/v4/spreadsheets',
             // Sheet untuk data siswa dan absensi
@@ -960,12 +958,12 @@ Siti Nurhaliza Putri	7-2
         
         // Validasi Spreadsheet ID
         const isSpreadsheetConfigured = SHEETS_CONFIG.spreadsheetId && 
-                                      SHEETS_CONFIG.spreadsheetId !== '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318' &&
+                                      SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' &&
                                       SHEETS_CONFIG.spreadsheetId.trim() !== '';
         
         // Validasi API Key
         const isApiKeyConfigured = SHEETS_CONFIG.apiKey && 
-                                 SHEETS_CONFIG.apiKey !== 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg' &&
+                                 SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA' &&
                                  SHEETS_CONFIG.apiKey.trim() !== '';
         
         console.log('📋 Spreadsheet ID configured:', isSpreadsheetConfigured);
@@ -1169,11 +1167,11 @@ Siti Nurhaliza Putri	7-2
             
             // Validasi konfigurasi - cek apakah masih menggunakan placeholder
             const isSpreadsheetConfigured = SHEETS_CONFIG.spreadsheetId && 
-                                          SHEETS_CONFIG.spreadsheetId !== '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318' &&
+                                          SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' &&
                                           SHEETS_CONFIG.spreadsheetId.trim() !== '';
             
             const isApiKeyConfigured = SHEETS_CONFIG.apiKey && 
-                                     SHEETS_CONFIG.apiKey !== 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg' &&
+                                     SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA' &&
                                      SHEETS_CONFIG.apiKey.trim() !== '';
             
             if (!isSpreadsheetConfigured) {
@@ -1298,11 +1296,11 @@ Siti Nurhaliza Putri	7-2
             
             // Validasi konfigurasi - cek apakah masih menggunakan placeholder
             const isSpreadsheetConfigured = SHEETS_CONFIG.spreadsheetId && 
-                                          SHEETS_CONFIG.spreadsheetId !== '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318' &&
+                                          SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' &&
                                           SHEETS_CONFIG.spreadsheetId.trim() !== '';
             
             const isApiKeyConfigured = SHEETS_CONFIG.apiKey && 
-                                     SHEETS_CONFIG.apiKey !== 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg' &&
+                                     SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA' &&
                                      SHEETS_CONFIG.apiKey.trim() !== '';
             
             if (!isSpreadsheetConfigured) {
@@ -2911,11 +2909,11 @@ SMP Negeri 5 Banda Aceh`;
             
             // Check configuration status
             const isSpreadsheetConfigured = SHEETS_CONFIG.spreadsheetId && 
-                                          SHEETS_CONFIG.spreadsheetId !== '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318' &&
+                                          SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' &&
                                           SHEETS_CONFIG.spreadsheetId.trim() !== '';
             
             const isApiKeyConfigured = SHEETS_CONFIG.apiKey && 
-                                     SHEETS_CONFIG.apiKey !== 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg' &&
+                                     SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA' &&
                                      SHEETS_CONFIG.apiKey.trim() !== '';
             
             const isConfigured = isSpreadsheetConfigured && isApiKeyConfigured;
@@ -2983,5 +2981,5 @@ SMP Negeri 5 Banda Aceh`;
             }
         }, 2000);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9943bee1d169efdf',t:'MTc2MTQxNjYxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9943d141110c9c5d',t:'MTc2MTQxNzM2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
