@@ -6,6 +6,7 @@
     <title>Aplikasi Absensi Multi-Guru - SMP Negeri 5 Banda Aceh</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <style>
         body {
             box-sizing: border-box;
@@ -484,11 +485,11 @@
                             </div>
                         </div>
                         
-                        <!-- Langkah 4: Aktifkan Google Sheets API -->
+                        <!-- Langkah 4: Setup OAuth2 Credentials -->
                         <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
                             <h3 class="font-bold text-orange-800 mb-3 flex items-center">
                                 <span class="bg-orange-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">4</span>
-                                Aktifkan Google Sheets API
+                                Setup OAuth2 Credentials
                             </h3>
                             <div class="space-y-3 text-sm text-orange-700">
                                 <p><strong>🔧 Langkah di Google Cloud Console:</strong></p>
@@ -508,15 +509,27 @@
                                     <p>4. Klik tombol <span class="bg-blue-100 px-2 py-1 rounded">"ENABLE"</span></p>
                                 </div>
                                 
-                                <p><strong>🔑 Buat API Key:</strong></p>
+                                <p><strong>🔐 Setup OAuth2:</strong></p>
                                 <div class="ml-4 space-y-2">
                                     <p>1. Klik <span class="bg-gray-100 px-2 py-1 rounded">"Credentials"</span> di menu kiri</p>
                                     <p>2. Klik <span class="bg-blue-100 px-2 py-1 rounded">"+ CREATE CREDENTIALS"</span></p>
-                                    <p>3. Pilih <span class="bg-green-100 px-2 py-1 rounded">"API key"</span></p>
-                                    <p>4. <strong>SALIN API KEY</strong> yang muncul (simpan di tempat aman!)</p>
-                                    <p>5. Klik <span class="bg-yellow-100 px-2 py-1 rounded">"RESTRICT KEY"</span> untuk keamanan</p>
-                                    <p>6. Di "API restrictions", pilih "Google Sheets API"</p>
-                                    <p>7. Klik <span class="bg-blue-100 px-2 py-1 rounded">"SAVE"</span></p>
+                                    <p>3. Pilih <span class="bg-green-100 px-2 py-1 rounded">"OAuth client ID"</span></p>
+                                    <p>4. Jika diminta, konfigurasi OAuth consent screen terlebih dahulu</p>
+                                    <p>5. Pilih Application type: <span class="bg-yellow-100 px-2 py-1 rounded">"Web application"</span></p>
+                                    <p>6. Beri nama: <span class="bg-gray-100 px-2 py-1 rounded font-mono">"Absensi SMPN 5 Web"</span></p>
+                                    <p>7. Di "Authorized JavaScript origins", tambahkan domain aplikasi Anda</p>
+                                    <p>8. Klik <span class="bg-blue-100 px-2 py-1 rounded">"CREATE"</span></p>
+                                    <p>9. <strong>SALIN CLIENT ID</strong> yang muncul (simpan di tempat aman!)</p>
+                                </div>
+                                
+                                <p><strong>🔑 Buat API Key (Opsional):</strong></p>
+                                <div class="ml-4 space-y-2">
+                                    <p>1. Klik <span class="bg-blue-100 px-2 py-1 rounded">"+ CREATE CREDENTIALS"</span> lagi</p>
+                                    <p>2. Pilih <span class="bg-green-100 px-2 py-1 rounded">"API key"</span></p>
+                                    <p>3. <strong>SALIN API KEY</strong> yang muncul</p>
+                                    <p>4. Klik <span class="bg-yellow-100 px-2 py-1 rounded">"RESTRICT KEY"</span></p>
+                                    <p>5. Di "API restrictions", pilih "Google Sheets API"</p>
+                                    <p>6. Klik <span class="bg-blue-100 px-2 py-1 rounded">"SAVE"</span></p>
                                 </div>
                             </div>
                         </div>
@@ -568,13 +581,14 @@
                                     <p>4. Atau gunakan Ctrl+F dan cari "SHEETS_CONFIG"</p>
                                 </div>
                                 
-                                <p><strong>📝 Ganti Konfigurasi:</strong></p>
+                                <p><strong>📝 Ganti Konfigurasi OAuth2:</strong></p>
                                 <div class="bg-white border-2 border-red-300 rounded-lg p-3">
                                     <p class="text-xs mb-2 font-semibold">SEBELUM (Default):</p>
                                     <div class="bg-gray-100 p-2 rounded font-mono text-xs">
                                         <div>const SHEETS_CONFIG = {</div>
                                         <div class="ml-4">spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',</div>
                                         <div class="ml-4">apiKey: 'AIzaSyBnNkZ2-e0d4GsX0E31ZbX3nokmqNHoQHU',</div>
+                                        <div class="ml-4">clientId: 'YOUR_CLIENT_ID_HERE',</div>
                                         <div>};</div>
                                     </div>
                                     
@@ -583,12 +597,20 @@
                                         <div>const SHEETS_CONFIG = {</div>
                                         <div class="ml-4">spreadsheetId: '<span class="bg-yellow-200">ID_SPREADSHEET_ANDA_DISINI</span>',</div>
                                         <div class="ml-4">apiKey: '<span class="bg-yellow-200">API_KEY_ANDA_DISINI</span>',</div>
+                                        <div class="ml-4">clientId: '<span class="bg-yellow-200">OAUTH_CLIENT_ID_ANDA_DISINI</span>',</div>
                                         <div>};</div>
                                     </div>
                                 </div>
                                 
+                                <p><strong>🔍 Format Client ID:</strong></p>
+                                <div class="ml-4 space-y-1 text-xs">
+                                    <p>• Client ID biasanya berformat: <span class="bg-gray-100 px-1 rounded font-mono">123456789-abcdefg.apps.googleusercontent.com</span></p>
+                                    <p>• Pastikan menggunakan Client ID untuk "Web application"</p>
+                                    <p>• Jangan gunakan Client ID untuk Android/iOS</p>
+                                </div>
+                                
                                 <div class="bg-red-100 border border-red-300 rounded p-2">
-                                    <p class="text-xs"><strong>⚠️ Penting:</strong> Jangan hapus tanda kutip (') di sekitar ID dan API Key!</p>
+                                    <p class="text-xs"><strong>⚠️ Penting:</strong> Jangan hapus tanda kutip (') di sekitar semua ID dan Key!</p>
                                 </div>
                             </div>
                         </div>
@@ -947,10 +969,13 @@ Siti Nurhaliza Putri	7-2
             // Konfigurasi Google Sheets Anda
             spreadsheetId: '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318',
             apiKey: 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg',
+            clientId: '1610771405-jv9td0orn726f9lntroah6gn1opfmjou.apps.googleusercontent.com', // OAuth2 Client ID
             apiUrl: 'https://sheets.googleapis.com/v4/spreadsheets',
             // Sheet untuk data siswa dan absensi
             studentRange: 'DataSiswa!A:B',
-            absensiRange: 'DataAbsensi!A:H'
+            absensiRange: 'DataAbsensi!A:H',
+            // OAuth2 Scopes
+            scopes: 'https://www.googleapis.com/auth/spreadsheets'
         };
 
         // Debug: Log konfigurasi saat startup (tanpa expose data sensitif)
@@ -1026,6 +1051,9 @@ Siti Nurhaliza Putri	7-2
         let currentTeacher = null;
         let isOnline = navigator.onLine;
         let sheetsConnected = false;
+        let isGapiLoaded = false;
+        let isSignedIn = false;
+        let authInstance = null;
 
         // ========================================
         // FUNGSI GRAFIK KETERLAMBATAN
@@ -1156,8 +1184,58 @@ Siti Nurhaliza Putri	7-2
         updateConnectionStatus();
 
         // ========================================
-        // FUNGSI SINKRONISASI GOOGLE SHEETS
+        // FUNGSI SINKRONISASI GOOGLE SHEETS (OAuth2)
         // ========================================
+        
+        // Initialize Google API
+        async function initializeGoogleAPI() {
+            return new Promise((resolve) => {
+                gapi.load('auth2:client', async () => {
+                    try {
+                        await gapi.client.init({
+                            apiKey: SHEETS_CONFIG.apiKey,
+                            clientId: SHEETS_CONFIG.clientId,
+                            discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+                            scope: SHEETS_CONFIG.scopes
+                        });
+                        
+                        authInstance = gapi.auth2.getAuthInstance();
+                        isSignedIn = authInstance.isSignedIn.get();
+                        isGapiLoaded = true;
+                        
+                        console.log('✅ Google API initialized');
+                        resolve(true);
+                    } catch (error) {
+                        console.error('❌ Failed to initialize Google API:', error);
+                        resolve(false);
+                    }
+                });
+            });
+        }
+        
+        // Sign in to Google
+        async function signInToGoogle() {
+            if (!isGapiLoaded) {
+                const initialized = await initializeGoogleAPI();
+                if (!initialized) {
+                    showNotification('❌ Gagal menginisialisasi Google API', 'error');
+                    return false;
+                }
+            }
+            
+            try {
+                if (!isSignedIn) {
+                    await authInstance.signIn();
+                    isSignedIn = true;
+                    console.log('✅ Signed in to Google');
+                }
+                return true;
+            } catch (error) {
+                console.error('❌ Sign in failed:', error);
+                showNotification('❌ Gagal login ke Google. Periksa konfigurasi OAuth2.', 'error');
+                return false;
+            }
+        }
         
         async function syncToGoogleSheets(data, type = 'absensi') {
             if (!isOnline) {
@@ -1165,64 +1243,39 @@ Siti Nurhaliza Putri	7-2
                 return false;
             }
             
-            // Validasi konfigurasi - cek apakah masih menggunakan placeholder
+            // Validasi konfigurasi
             const isSpreadsheetConfigured = SHEETS_CONFIG.spreadsheetId && 
                                           SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' &&
                                           SHEETS_CONFIG.spreadsheetId.trim() !== '';
             
-            const isApiKeyConfigured = SHEETS_CONFIG.apiKey && 
-                                     SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA' &&
-                                     SHEETS_CONFIG.apiKey.trim() !== '';
+            const isClientIdConfigured = SHEETS_CONFIG.clientId && 
+                                       SHEETS_CONFIG.clientId !== 'YOUR_CLIENT_ID_HERE' &&
+                                       SHEETS_CONFIG.clientId.trim() !== '';
             
             if (!isSpreadsheetConfigured) {
                 console.log('ℹ️ Spreadsheet ID belum dikonfigurasi - menyimpan lokal saja');
-                console.log('📋 Current Spreadsheet ID:', SHEETS_CONFIG.spreadsheetId);
                 showNotification('ℹ️ Data disimpan lokal. Konfigurasi Google Sheets untuk sinkronisasi otomatis.', 'success');
                 sheetsConnected = false;
                 updateConnectionStatus();
                 return false;
             }
             
-            if (!isApiKeyConfigured) {
-                console.log('ℹ️ API Key belum dikonfigurasi - menyimpan lokal saja');
-                console.log('🔑 Current API Key:', SHEETS_CONFIG.apiKey);
-                showNotification('ℹ️ Data disimpan lokal. Konfigurasi API Key untuk sinkronisasi otomatis.', 'success');
+            if (!isClientIdConfigured) {
+                console.log('ℹ️ Client ID belum dikonfigurasi - menyimpan lokal saja');
+                showNotification('ℹ️ Data disimpan lokal. Konfigurasi OAuth2 Client ID untuk sinkronisasi otomatis.', 'success');
                 sheetsConnected = false;
                 updateConnectionStatus();
                 return false;
             }
             
             try {
-                // Test koneksi dulu dengan membaca data
-                const testUrl = `${SHEETS_CONFIG.apiUrl}/${SHEETS_CONFIG.spreadsheetId}/values/DataAbsensi!A1:A1?key=${SHEETS_CONFIG.apiKey}`;
-                const testResponse = await fetch(testUrl);
-                
-                if (!testResponse.ok) {
-                    const errorData = await testResponse.json().catch(() => ({}));
-                    console.error('Sheets connection test failed:', errorData);
-                    
-                    // Handle specific errors
-                    if (errorData.error) {
-                        if (errorData.error.code === 400 && errorData.error.message.includes('API key not valid')) {
-                            showNotification('❌ API Key tidak valid! Periksa kembali API Key Anda.', 'error');
-                        } else if (errorData.error.code === 404) {
-                            showNotification('❌ Google Sheets tidak ditemukan! Periksa Spreadsheet ID dan izin akses.', 'error');
-                        } else if (errorData.error.code === 403) {
-                            showNotification('❌ Akses ditolak! Pastikan Google Sheets dapat diakses publik atau API Key memiliki izin.', 'error');
-                        } else {
-                            showNotification(`❌ Error Google Sheets: ${errorData.error.message}`, 'error');
-                        }
-                    } else {
-                        showNotification('❌ Gagal terhubung ke Google Sheets. Periksa konfigurasi Anda.', 'error');
-                    }
-                    
-                    sheetsConnected = false;
-                    updateConnectionStatus();
+                // Sign in jika belum
+                const signedIn = await signInToGoogle();
+                if (!signedIn) {
                     return false;
                 }
                 
                 const range = type === 'absensi' ? 'DataAbsensi!A:H' : 'DataSiswa!A:B';
-                const url = `${SHEETS_CONFIG.apiUrl}/${SHEETS_CONFIG.spreadsheetId}/values/${range}:append?valueInputOption=USER_ENTERED&insertDataOption=INSERT_ROWS&key=${SHEETS_CONFIG.apiKey}`;
                 
                 let values = [];
                 if (type === 'absensi') {
@@ -1240,49 +1293,39 @@ Siti Nurhaliza Putri	7-2
                     values = [[data.kelas, data.nama]];
                 }
                 
-                console.log('Syncing to sheets:', values); // Debug log
+                console.log('Syncing to sheets:', values);
                 
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
+                const response = await gapi.client.sheets.spreadsheets.values.append({
+                    spreadsheetId: SHEETS_CONFIG.spreadsheetId,
+                    range: range,
+                    valueInputOption: 'USER_ENTERED',
+                    insertDataOption: 'INSERT_ROWS',
+                    resource: {
                         values: values
-                    })
+                    }
                 });
                 
-                const responseData = await response.json();
-                console.log('Sheets response:', responseData); // Debug log
-                
-                if (response.ok && responseData.updates) {
+                if (response.status === 200) {
                     sheetsConnected = true;
                     updateConnectionStatus();
                     console.log('✅ Data berhasil disinkron ke Google Sheets');
                     return true;
                 } else {
-                    console.error('Sheets sync failed:', responseData);
-                    
-                    // Handle specific sync errors
-                    if (responseData.error) {
-                        if (responseData.error.message.includes('Unable to parse range')) {
-                            showNotification('❌ Sheet "DataAbsensi" atau "DataSiswa" tidak ditemukan! Periksa nama sheet.', 'error');
-                        } else {
-                            showNotification(`❌ Sync error: ${responseData.error.message}`, 'error');
-                        }
-                    }
-                    
+                    console.error('Sheets sync failed:', response);
                     sheetsConnected = false;
                     updateConnectionStatus();
                     return false;
                 }
+                
             } catch (error) {
                 console.error('Sheets sync error:', error);
                 
-                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-                    showNotification('❌ Koneksi internet bermasalah atau Google Sheets API tidak dapat diakses.', 'error');
+                if (error.details && error.details.includes('Unable to parse range')) {
+                    showNotification('❌ Sheet "DataAbsensi" atau "DataSiswa" tidak ditemukan! Periksa nama sheet.', 'error');
+                } else if (error.details && error.details.includes('not found')) {
+                    showNotification('❌ Google Sheets tidak ditemukan! Periksa Spreadsheet ID dan izin akses.', 'error');
                 } else {
-                    showNotification('❌ Terjadi kesalahan saat sinkronisasi. Periksa console untuk detail.', 'error');
+                    showNotification('❌ Terjadi kesalahan saat sinkronisasi. Coba login ulang ke Google.', 'error');
                 }
                 
                 sheetsConnected = false;
@@ -1294,46 +1337,50 @@ Siti Nurhaliza Putri	7-2
         async function loadFromGoogleSheets() {
             if (!isOnline) return false;
             
-            // Validasi konfigurasi - cek apakah masih menggunakan placeholder
+            // Validasi konfigurasi
             const isSpreadsheetConfigured = SHEETS_CONFIG.spreadsheetId && 
                                           SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' &&
                                           SHEETS_CONFIG.spreadsheetId.trim() !== '';
             
-            const isApiKeyConfigured = SHEETS_CONFIG.apiKey && 
-                                     SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA' &&
-                                     SHEETS_CONFIG.apiKey.trim() !== '';
+            const isClientIdConfigured = SHEETS_CONFIG.clientId && 
+                                       SHEETS_CONFIG.clientId !== 'YOUR_CLIENT_ID_HERE' &&
+                                       SHEETS_CONFIG.clientId.trim() !== '';
             
             if (!isSpreadsheetConfigured) {
                 console.log('ℹ️ Spreadsheet ID belum dikonfigurasi - menggunakan mode lokal');
-                console.log('📋 Current value:', SHEETS_CONFIG.spreadsheetId);
                 return false;
             }
             
-            if (!isApiKeyConfigured) {
-                console.log('ℹ️ API Key belum dikonfigurasi - menggunakan mode lokal');
-                console.log('🔑 Current value:', SHEETS_CONFIG.apiKey);
+            if (!isClientIdConfigured) {
+                console.log('ℹ️ Client ID belum dikonfigurasi - menggunakan mode lokal');
                 return false;
             }
             
             console.log('🔍 Mencoba koneksi ke Google Sheets...');
-            console.log('📋 Spreadsheet ID:', SHEETS_CONFIG.spreadsheetId.substring(0, 10) + '...');
-            console.log('🔑 API Key:', SHEETS_CONFIG.apiKey.substring(0, 10) + '...');
             
             try {
-                // Load student data
-                const studentUrl = `${SHEETS_CONFIG.apiUrl}/${SHEETS_CONFIG.spreadsheetId}/values/${SHEETS_CONFIG.studentRange}?key=${SHEETS_CONFIG.apiKey}`;
-                const studentResponse = await fetch(studentUrl);
+                // Sign in jika belum
+                const signedIn = await signInToGoogle();
+                if (!signedIn) {
+                    return false;
+                }
                 
-                if (studentResponse.ok) {
-                    const studentData = await studentResponse.json();
-                    if (studentData.values && studentData.values.length > 1) { // Skip if only header
+                // Load student data
+                const studentResponse = await gapi.client.sheets.spreadsheets.values.get({
+                    spreadsheetId: SHEETS_CONFIG.spreadsheetId,
+                    range: SHEETS_CONFIG.studentRange
+                });
+                
+                if (studentResponse.status === 200 && studentResponse.result.values) {
+                    const values = studentResponse.result.values;
+                    if (values.length > 1) { // Skip if only header
                         // Reset data siswa
                         Object.keys(dataSiswa).forEach(kelas => {
                             dataSiswa[kelas] = [];
                         });
                         
                         // Load dari sheets (skip header row)
-                        studentData.values.slice(1).forEach(row => {
+                        values.slice(1).forEach(row => {
                             if (row.length >= 2) {
                                 const kelas = row[0];
                                 const nama = row[1];
@@ -1346,24 +1393,19 @@ Siti Nurhaliza Putri	7-2
                         localStorage.setItem('dataSiswa', JSON.stringify(dataSiswa));
                         console.log('✅ Data siswa berhasil dimuat dari Google Sheets');
                     }
-                } else {
-                    const errorData = await studentResponse.json().catch(() => ({}));
-                    console.error('Failed to load student data:', errorData);
-                    
-                    if (errorData.error && errorData.error.message.includes('Unable to parse range')) {
-                        showNotification('❌ Sheet "DataSiswa" tidak ditemukan! Pastikan nama sheet benar.', 'error');
-                    }
                 }
                 
                 // Load absensi data
-                const absensiUrl = `${SHEETS_CONFIG.apiUrl}/${SHEETS_CONFIG.spreadsheetId}/values/${SHEETS_CONFIG.absensiRange}?key=${SHEETS_CONFIG.apiKey}`;
-                const absensiResponse = await fetch(absensiUrl);
+                const absensiResponse = await gapi.client.sheets.spreadsheets.values.get({
+                    spreadsheetId: SHEETS_CONFIG.spreadsheetId,
+                    range: SHEETS_CONFIG.absensiRange
+                });
                 
-                if (absensiResponse.ok) {
-                    const absensiData = await absensiResponse.json();
-                    if (absensiData.values && absensiData.values.length > 1) { // Skip if only header
+                if (absensiResponse.status === 200 && absensiResponse.result.values) {
+                    const values = absensiResponse.result.values;
+                    if (values.length > 1) { // Skip if only header
                         dataAbsensi = [];
-                        absensiData.values.slice(1).forEach((row, index) => { // Skip header
+                        values.slice(1).forEach((row, index) => { // Skip header
                             if (row.length >= 7) {
                                 dataAbsensi.push({
                                     id: Date.now() + index,
@@ -1382,13 +1424,6 @@ Siti Nurhaliza Putri	7-2
                         localStorage.setItem('dataAbsensi', JSON.stringify(dataAbsensi));
                         console.log('✅ Data absensi berhasil dimuat dari Google Sheets');
                     }
-                } else {
-                    const errorData = await absensiResponse.json().catch(() => ({}));
-                    console.error('Failed to load absensi data:', errorData);
-                    
-                    if (errorData.error && errorData.error.message.includes('Unable to parse range')) {
-                        showNotification('❌ Sheet "DataAbsensi" tidak ditemukan! Pastikan nama sheet benar.', 'error');
-                    }
                 }
                 
                 sheetsConnected = true;
@@ -1398,10 +1433,16 @@ Siti Nurhaliza Putri	7-2
             } catch (error) {
                 console.error('Load from sheets error:', error);
                 
-                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-                    console.error('❌ Koneksi internet bermasalah atau Google Sheets API tidak dapat diakses.');
+                if (error.result && error.result.error) {
+                    if (error.result.error.message.includes('Unable to parse range')) {
+                        showNotification('❌ Sheet "DataSiswa" atau "DataAbsensi" tidak ditemukan! Pastikan nama sheet benar.', 'error');
+                    } else if (error.result.error.code === 404) {
+                        showNotification('❌ Google Sheets tidak ditemukan! Periksa Spreadsheet ID.', 'error');
+                    } else {
+                        showNotification(`❌ Error: ${error.result.error.message}`, 'error');
+                    }
                 } else {
-                    console.error('❌ Terjadi kesalahan saat memuat data dari Google Sheets.');
+                    showNotification('❌ Terjadi kesalahan saat memuat data dari Google Sheets.', 'error');
                 }
                 
                 sheetsConnected = false;
@@ -2912,42 +2953,51 @@ SMP Negeri 5 Banda Aceh`;
                                           SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' &&
                                           SHEETS_CONFIG.spreadsheetId.trim() !== '';
             
-            const isApiKeyConfigured = SHEETS_CONFIG.apiKey && 
-                                     SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA' &&
-                                     SHEETS_CONFIG.apiKey.trim() !== '';
+            const isClientIdConfigured = SHEETS_CONFIG.clientId && 
+                                       SHEETS_CONFIG.clientId !== 'YOUR_CLIENT_ID_HERE' &&
+                                       SHEETS_CONFIG.clientId.trim() !== '';
             
-            const isConfigured = isSpreadsheetConfigured && isApiKeyConfigured;
+            const isConfigured = isSpreadsheetConfigured && isClientIdConfigured;
             
-            if (sheetsConnected && isConfigured) {
+            if (sheetsConnected && isConfigured && isSignedIn) {
                 syncStatus.innerHTML = `
                     <div class="flex items-center">
                         <span class="text-green-600 mr-2">✅</span>
-                        <span class="text-green-800 font-medium">Sinkronisasi Aktif</span>
+                        <span class="text-green-800 font-medium">Sinkronisasi Aktif (OAuth2)</span>
                     </div>
-                    <p class="text-green-700 text-sm mt-1">Data tersinkron otomatis dengan Google Sheets</p>
+                    <p class="text-green-700 text-sm mt-1">Data tersinkron otomatis dengan Google Sheets menggunakan OAuth2</p>
                 `;
                 syncStatus.className = 'bg-green-50 border border-green-200 rounded-lg p-3';
             } else if (!isConfigured) {
                 syncStatus.innerHTML = `
                     <div class="flex items-center">
                         <span class="text-red-600 mr-2">🔧</span>
-                        <span class="text-red-800 font-medium">Konfigurasi Google Sheets Belum Lengkap</span>
+                        <span class="text-red-800 font-medium">Konfigurasi OAuth2 Belum Lengkap</span>
                     </div>
                     <p class="text-red-700 text-sm mt-1">
                         <strong>Yang perlu dikonfigurasi:</strong><br>
                         ${!isSpreadsheetConfigured ? '• Spreadsheet ID belum diisi atau masih placeholder<br>' : ''}
-                        ${!isApiKeyConfigured ? '• API Key belum diisi atau masih placeholder<br>' : ''}
-                        Ikuti panduan lengkap di bawah untuk setup.
+                        ${!isClientIdConfigured ? '• OAuth2 Client ID belum diisi atau masih placeholder<br>' : ''}
+                        Ikuti panduan lengkap di bawah untuk setup OAuth2.
                     </p>
                 `;
                 syncStatus.className = 'bg-red-50 border border-red-200 rounded-lg p-3';
+            } else if (isOnline && isConfigured && !isSignedIn) {
+                syncStatus.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="text-blue-600 mr-2">🔐</span>
+                        <span class="text-blue-800 font-medium">Perlu Login ke Google</span>
+                    </div>
+                    <p class="text-blue-700 text-sm mt-1">Konfigurasi sudah lengkap. Klik "Sinkron Data Sekarang" untuk login ke Google dan mengaktifkan sinkronisasi.</p>
+                `;
+                syncStatus.className = 'bg-blue-50 border border-blue-200 rounded-lg p-3';
             } else if (isOnline && isConfigured) {
                 syncStatus.innerHTML = `
                     <div class="flex items-center">
                         <span class="text-yellow-600 mr-2">⚠️</span>
                         <span class="text-yellow-800 font-medium">Sinkronisasi Belum Berhasil</span>
                     </div>
-                    <p class="text-yellow-700 text-sm mt-1">Konfigurasi sudah ada tapi belum berhasil terhubung. Coba klik "Sinkron Data Sekarang" atau periksa konfigurasi.</p>
+                    <p class="text-yellow-700 text-sm mt-1">Konfigurasi sudah ada tapi belum berhasil terhubung. Coba klik "Sinkron Data Sekarang" atau periksa konfigurasi OAuth2.</p>
                 `;
                 syncStatus.className = 'bg-yellow-50 border border-yellow-200 rounded-lg p-3';
             } else {
@@ -2956,7 +3006,7 @@ SMP Negeri 5 Banda Aceh`;
                         <span class="text-gray-600 mr-2">📱</span>
                         <span class="text-gray-800 font-medium">Offline - Tidak Dapat Sinkronisasi</span>
                     </div>
-                    <p class="text-gray-700 text-sm mt-1">Hubungkan ke internet untuk mengaktifkan sinkronisasi</p>
+                    <p class="text-gray-700 text-sm mt-1">Hubungkan ke internet untuk mengaktifkan sinkronisasi OAuth2</p>
                 `;
                 syncStatus.className = 'bg-gray-50 border border-gray-200 rounded-lg p-3';
             }
@@ -2971,9 +3021,13 @@ SMP Negeri 5 Banda Aceh`;
         // Update sync status
         updateSyncStatus();
         
-        // Auto load dari Google Sheets saat startup
+        // Initialize Google API dan auto load data saat startup
         setTimeout(async () => {
             if (isOnline) {
+                // Initialize Google API first
+                await initializeGoogleAPI();
+                
+                // Then try to load data
                 await loadFromGoogleSheets();
                 updateRekap();
                 updateChart();
@@ -2981,5 +3035,5 @@ SMP Negeri 5 Banda Aceh`;
             }
         }, 2000);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9943d141110c9c5d',t:'MTc2MTQxNzM2NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9943eea4e67efd02',t:'MTc2MTQxODU2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
