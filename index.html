@@ -966,7 +966,7 @@ Siti Nurhaliza Putri	7-2
         
         // Google Sheets Config untuk Sinkronisasi
         const SHEETS_CONFIG = {
-            // Konfigurasi Google Sheets Anda
+            // Konfigurasi Google Sheets Anda - SUDAH DIKONFIGURASI!
             spreadsheetId: '1p5Jic3DwJogtZzfpq8rYCHYJzLIxiLk9UDPCoY-k318',
             apiKey: 'AIzaSyDIIiH4ZAAo2XE_evZxWGaww9h_RRyKWGg',
             clientId: '1610771405-jv9td0orn726f9lntroah6gn1opfmjou.apps.googleusercontent.com', // OAuth2 Client ID
@@ -1190,8 +1190,28 @@ Siti Nurhaliza Putri	7-2
         // Initialize Google API
         async function initializeGoogleAPI() {
             return new Promise((resolve) => {
+                // Check if gapi is available
+                if (typeof gapi === 'undefined') {
+                    console.error('❌ Google API library not loaded');
+                    resolve(false);
+                    return;
+                }
+                
                 gapi.load('auth2:client', async () => {
                     try {
+                        // Validate configuration first
+                        if (!SHEETS_CONFIG.clientId || SHEETS_CONFIG.clientId === 'YOUR_CLIENT_ID_HERE') {
+                            console.log('ℹ️ OAuth2 Client ID not configured - skipping Google API init');
+                            resolve(false);
+                            return;
+                        }
+                        
+                        if (!SHEETS_CONFIG.apiKey || SHEETS_CONFIG.apiKey === 'GANTI_DENGAN_API_KEY_ANDA') {
+                            console.log('ℹ️ API Key not configured - skipping Google API init');
+                            resolve(false);
+                            return;
+                        }
+                        
                         await gapi.client.init({
                             apiKey: SHEETS_CONFIG.apiKey,
                             clientId: SHEETS_CONFIG.clientId,
@@ -1203,10 +1223,21 @@ Siti Nurhaliza Putri	7-2
                         isSignedIn = authInstance.isSignedIn.get();
                         isGapiLoaded = true;
                         
-                        console.log('✅ Google API initialized');
+                        console.log('✅ Google API initialized successfully');
                         resolve(true);
                     } catch (error) {
                         console.error('❌ Failed to initialize Google API:', error);
+                        console.error('Error details:', error.details || error.message);
+                        
+                        // Show user-friendly error message
+                        if (error.details && error.details.includes('Invalid API key')) {
+                            showNotification('❌ API Key tidak valid! Periksa konfigurasi API Key.', 'error');
+                        } else if (error.details && error.details.includes('Invalid client_id')) {
+                            showNotification('❌ Client ID tidak valid! Periksa konfigurasi OAuth2 Client ID.', 'error');
+                        } else {
+                            console.log('ℹ️ Google API initialization failed - using local mode');
+                        }
+                        
                         resolve(false);
                     }
                 });
@@ -3024,16 +3055,41 @@ SMP Negeri 5 Banda Aceh`;
         // Initialize Google API dan auto load data saat startup
         setTimeout(async () => {
             if (isOnline) {
-                // Initialize Google API first
-                await initializeGoogleAPI();
-                
-                // Then try to load data
-                await loadFromGoogleSheets();
-                updateRekap();
-                updateChart();
+                try {
+                    console.log('🔄 Starting Google API initialization...');
+                    
+                    // Initialize Google API first
+                    const apiInitialized = await initializeGoogleAPI();
+                    
+                    if (apiInitialized) {
+                        console.log('✅ Google API ready, attempting to load data...');
+                        
+                        // Then try to load data
+                        const dataLoaded = await loadFromGoogleSheets();
+                        
+                        if (dataLoaded) {
+                            console.log('✅ Data successfully loaded from Google Sheets');
+                            showNotification('✅ Data berhasil dimuat dari Google Sheets!', 'success');
+                        } else {
+                            console.log('ℹ️ Could not load data from Google Sheets - using local data');
+                        }
+                    } else {
+                        console.log('ℹ️ Google API not initialized - running in local mode');
+                    }
+                    
+                } catch (error) {
+                    console.error('❌ Error during startup initialization:', error);
+                } finally {
+                    // Always update displays regardless of sync status
+                    updateRekap();
+                    updateChart();
+                    updateSyncStatus();
+                }
+            } else {
+                console.log('📱 Offline mode - skipping Google API initialization');
                 updateSyncStatus();
             }
         }, 2000);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9943eea4e67efd02',t:'MTc2MTQxODU2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9944006fd2689c5d',t:'MTc2MTQxOTI5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
