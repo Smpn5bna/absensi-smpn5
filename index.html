@@ -955,6 +955,18 @@ Siti Nurhaliza Putri	7-2
             absensiRange: 'DataAbsensi!A:H'
         };
 
+        // Debug: Log konfigurasi saat startup (tanpa expose data sensitif)
+        console.log('🔧 Konfigurasi Google Sheets:');
+        console.log('📋 Spreadsheet ID configured:', SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA');
+        console.log('🔑 API Key configured:', SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA');
+        
+        if (SHEETS_CONFIG.spreadsheetId !== 'GANTI_DENGAN_ID_SPREADSHEET_ANDA') {
+            console.log('📋 Spreadsheet ID length:', SHEETS_CONFIG.spreadsheetId.length);
+        }
+        if (SHEETS_CONFIG.apiKey !== 'GANTI_DENGAN_API_KEY_ANDA') {
+            console.log('🔑 API Key length:', SHEETS_CONFIG.apiKey.length);
+        }
+
         // Data global
         let dataSiswa = {
             '7-1': [], '7-2': [], '7-3': [],
@@ -1137,18 +1149,22 @@ Siti Nurhaliza Putri	7-2
                 return false;
             }
             
-            // Validasi konfigurasi
-            if (!SHEETS_CONFIG.spreadsheetId || SHEETS_CONFIG.spreadsheetId === 'GANTI_DENGAN_ID_SPREADSHEET_ANDA') {
-                console.error('❌ Spreadsheet ID belum dikonfigurasi!');
-                showNotification('❌ Konfigurasi Google Sheets belum lengkap! Lihat panduan di bawah.', 'error');
+            // Validasi konfigurasi - cek apakah masih menggunakan placeholder
+            if (!SHEETS_CONFIG.spreadsheetId || 
+                SHEETS_CONFIG.spreadsheetId === 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' ||
+                SHEETS_CONFIG.spreadsheetId.trim() === '') {
+                console.log('ℹ️ Spreadsheet ID belum dikonfigurasi - menyimpan lokal saja');
+                showNotification('ℹ️ Data disimpan lokal. Konfigurasi Google Sheets untuk sinkronisasi otomatis.', 'success');
                 sheetsConnected = false;
                 updateConnectionStatus();
                 return false;
             }
             
-            if (!SHEETS_CONFIG.apiKey || SHEETS_CONFIG.apiKey === 'GANTI_DENGAN_API_KEY_ANDA') {
-                console.error('❌ API Key belum dikonfigurasi!');
-                showNotification('❌ API Key Google Sheets belum dikonfigurasi! Lihat panduan di bawah.', 'error');
+            if (!SHEETS_CONFIG.apiKey || 
+                SHEETS_CONFIG.apiKey === 'GANTI_DENGAN_API_KEY_ANDA' ||
+                SHEETS_CONFIG.apiKey.trim() === '') {
+                console.log('ℹ️ API Key belum dikonfigurasi - menyimpan lokal saja');
+                showNotification('ℹ️ Data disimpan lokal. Konfigurasi API Key untuk sinkronisasi otomatis.', 'success');
                 sheetsConnected = false;
                 updateConnectionStatus();
                 return false;
@@ -1256,16 +1272,24 @@ Siti Nurhaliza Putri	7-2
         async function loadFromGoogleSheets() {
             if (!isOnline) return false;
             
-            // Validasi konfigurasi
-            if (!SHEETS_CONFIG.spreadsheetId || SHEETS_CONFIG.spreadsheetId === 'GANTI_DENGAN_ID_SPREADSHEET_ANDA') {
-                console.error('❌ Spreadsheet ID belum dikonfigurasi!');
+            // Validasi konfigurasi - cek apakah masih menggunakan placeholder
+            if (!SHEETS_CONFIG.spreadsheetId || 
+                SHEETS_CONFIG.spreadsheetId === 'GANTI_DENGAN_ID_SPREADSHEET_ANDA' ||
+                SHEETS_CONFIG.spreadsheetId.trim() === '') {
+                console.log('ℹ️ Spreadsheet ID belum dikonfigurasi - menggunakan mode lokal');
                 return false;
             }
             
-            if (!SHEETS_CONFIG.apiKey || SHEETS_CONFIG.apiKey === 'GANTI_DENGAN_API_KEY_ANDA') {
-                console.error('❌ API Key belum dikonfigurasi!');
+            if (!SHEETS_CONFIG.apiKey || 
+                SHEETS_CONFIG.apiKey === 'GANTI_DENGAN_API_KEY_ANDA' ||
+                SHEETS_CONFIG.apiKey.trim() === '') {
+                console.log('ℹ️ API Key belum dikonfigurasi - menggunakan mode lokal');
                 return false;
             }
+            
+            console.log('🔍 Mencoba koneksi ke Google Sheets...');
+            console.log('📋 Spreadsheet ID:', SHEETS_CONFIG.spreadsheetId.substring(0, 10) + '...');
+            console.log('🔑 API Key:', SHEETS_CONFIG.apiKey.substring(0, 10) + '...');
             
             try {
                 // Load student data
@@ -2923,6 +2947,5 @@ SMP Negeri 5 Banda Aceh`;
             }
         }, 2000);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99439698f3e8efdf',t:'MTc2MTQxNDk2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9943ab901423fd02',t:'MTc2MTQxNTgyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
-
