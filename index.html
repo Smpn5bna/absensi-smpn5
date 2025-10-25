@@ -352,6 +352,39 @@
                         <p class="text-yellow-700 text-sm mt-1">Ikuti langkah-langkah di bawah untuk mengaktifkan sinkronisasi otomatis</p>
                     </div>
                     
+                    <!-- Domain Configuration Status -->
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mt-3">
+                        <div class="flex items-center mb-3">
+                            <span class="text-red-600 mr-2">❌</span>
+                            <span class="text-red-800 font-bold">SOLUSI ERROR OAUTH2</span>
+                        </div>
+                        
+                        <div class="bg-red-100 border border-red-300 rounded p-3 mb-3">
+                            <p class="text-red-800 font-semibold text-sm">Error: "idpiframe_initialization_failed"</p>
+                            <p class="text-red-700 text-xs mt-1">Domain https://smpn5bna.github.io belum terdaftar di OAuth2 Client ID</p>
+                        </div>
+                        
+                        <div class="space-y-2 text-sm">
+                            <p class="text-red-800 font-semibold">🔧 LANGKAH PERBAIKAN:</p>
+                            <div class="ml-4 space-y-1 text-red-700">
+                                <p><strong>1.</strong> Buka <a href="https://console.developers.google.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline font-semibold">Google Cloud Console</a></p>
+                                <p><strong>2.</strong> Pilih project yang benar</p>
+                                <p><strong>3.</strong> Masuk ke "APIs & Services" → "Credentials"</p>
+                                <p><strong>4.</strong> Klik pada OAuth 2.0 Client ID yang sudah ada</p>
+                                <p><strong>5.</strong> Di bagian "Authorized JavaScript origins", klik <span class="bg-blue-100 px-2 py-1 rounded text-blue-800 font-mono">+ ADD URI</span></p>
+                                <p><strong>6.</strong> Tambahkan: <span class="bg-red-200 px-2 py-1 rounded font-mono font-bold">https://smpn5bna.github.io</span></p>
+                                <p><strong>7.</strong> Klik <span class="bg-blue-100 px-2 py-1 rounded text-blue-800 font-mono">SAVE</span></p>
+                                <p><strong>8.</strong> Tunggu 5-10 menit agar perubahan aktif</p>
+                                <p><strong>9.</strong> Refresh halaman ini dan coba lagi</p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border border-yellow-300 rounded p-2 mt-3">
+                            <p class="text-yellow-800 text-xs font-semibold">💡 PENTING:</p>
+                            <p class="text-yellow-700 text-xs">Pastikan menggunakan HTTPS (bukan HTTP) dan tidak ada typo dalam URL domain!</p>
+                        </div>
+                    </div>
+                    
                     <!-- Toggle Panduan -->
                     <button onclick="toggleSyncGuide()" id="syncGuideToggle" class="w-full bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center">
                         <span class="mr-2">📖</span>
@@ -517,7 +550,10 @@
                                     <p>4. Jika diminta, konfigurasi OAuth consent screen terlebih dahulu</p>
                                     <p>5. Pilih Application type: <span class="bg-yellow-100 px-2 py-1 rounded">"Web application"</span></p>
                                     <p>6. Beri nama: <span class="bg-gray-100 px-2 py-1 rounded font-mono">"Absensi SMPN 5 Web"</span></p>
-                                    <p>7. Di "Authorized JavaScript origins", tambahkan domain aplikasi Anda</p>
+                                    <p>7. Di "Authorized JavaScript origins", tambahkan:</p>
+                                    <div class="ml-4 bg-blue-50 p-2 rounded border">
+                                        <p class="font-mono text-sm">https://smpn5bna.github.io</p>
+                                    </div>
                                     <p>8. Klik <span class="bg-blue-100 px-2 py-1 rounded">"CREATE"</span></p>
                                     <p>9. <strong>SALIN CLIENT ID</strong> yang muncul (simpan di tempat aman!)</p>
                                 </div>
@@ -721,12 +757,20 @@
                         </div>
                         
                         <!-- Troubleshooting -->
-                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                            <h3 class="font-bold text-yellow-800 mb-3 flex items-center">
-                                <span class="text-yellow-600 mr-2">🔧</span>
-                                Troubleshooting Lengkap
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                            <h3 class="font-bold text-red-800 mb-3 flex items-center">
+                                <span class="text-red-600 mr-2">❌</span>
+                                Error OAuth2: Domain Tidak Terdaftar
                             </h3>
-                            <div class="space-y-3 text-sm text-yellow-700">
+                            <div class="space-y-3 text-sm text-red-700">
+                                <p><strong>❌ Error: "idpiframe_initialization_failed" - Domain Tidak Terdaftar</strong></p>
+                                <div class="ml-4 space-y-1 text-xs">
+                                    <p>• Domain <strong>https://smpn5bna.github.io</strong> belum terdaftar di OAuth2 Client ID</p>
+                                    <p>• "Authorized JavaScript origins" belum dikonfigurasi dengan benar</p>
+                                    <p>• Client ID mungkin dibuat untuk domain lain</p>
+                                    <p>• Konfigurasi OAuth2 belum selesai</p>
+                                </div>
+                                
                                 <p><strong>❌ Error: "API key not valid"</strong></p>
                                 <div class="ml-4 space-y-1 text-xs">
                                     <p>• Cek API Key sudah benar (44 karakter)</p>
@@ -763,11 +807,28 @@
                                     <p>• Coba refresh halaman dan sync ulang</p>
                                 </div>
                                 
-                                <p><strong>🆘 Bantuan Lebih Lanjut:</strong></p>
+                                <p><strong>🔧 Cara Memperbaiki Error Domain:</strong></p>
                                 <div class="ml-4 space-y-1 text-xs">
-                                    <p>• Hubungi pengembang: Arisalwin, S.Pd</p>
-                                    <p>• Sertakan screenshot error yang muncul</p>
-                                    <p>• Berikan informasi langkah yang sudah dilakukan</p>
+                                    <p>1. Buka <a href="https://console.developers.google.com" target="_blank" class="text-blue-600 underline">Google Cloud Console</a></p>
+                                    <p>2. Pilih project yang benar</p>
+                                    <p>3. Masuk ke "APIs & Services" → "Credentials"</p>
+                                    <p>4. Klik pada OAuth 2.0 Client ID yang sudah ada</p>
+                                    <p>5. Di bagian "Authorized JavaScript origins", klik <span class="bg-blue-100 px-1 rounded">"+ ADD URI"</span></p>
+                                    <p>6. Tambahkan: <span class="bg-red-100 px-1 rounded font-mono">https://smpn5bna.github.io</span></p>
+                                    <p>7. Klik <span class="bg-blue-100 px-1 rounded">"SAVE"</span></p>
+                                    <p>8. Tunggu 5-10 menit agar perubahan aktif, lalu refresh halaman ini</p>
+                                </div>
+                                
+                                <p><strong>⚠️ Alternatif Sementara:</strong></p>
+                                <div class="ml-4 space-y-1 text-xs">
+                                    <p>• Gunakan mode offline saja (data tersimpan lokal)</p>
+                                    <p>• Export data manual ke file untuk backup</p>
+                                    <p>• Perbaiki OAuth2 nanti saat ada waktu</p>
+                                </div>
+                                
+                                <div class="bg-red-100 border border-red-300 rounded p-2 mt-3">
+                                    <p class="text-xs font-semibold text-red-800">❌ OAuth2 Domain Error Aktif</p>
+                                    <p class="text-xs text-red-700">Sinkronisasi Google Sheets tidak dapat digunakan sampai domain https://smpn5bna.github.io ditambahkan ke OAuth2 Client ID.</p>
                                 </div>
                             </div>
                         </div>
@@ -1234,6 +1295,9 @@ Siti Nurhaliza Putri	7-2
                             showNotification('❌ API Key tidak valid! Periksa konfigurasi API Key.', 'error');
                         } else if (error.details && error.details.includes('Invalid client_id')) {
                             showNotification('❌ Client ID tidak valid! Periksa konfigurasi OAuth2 Client ID.', 'error');
+                        } else if (error.error === 'idpiframe_initialization_failed' || (error.details && error.details.includes('Not a valid origin'))) {
+                            console.log('❌ OAuth2 Domain Error: Origin not registered');
+                            showNotification('❌ Domain belum terdaftar di OAuth2! Lihat panduan untuk menambahkan https://smpn5bna.github.io', 'error');
                         } else {
                             console.log('ℹ️ Google API initialization failed - using local mode');
                         }
@@ -3091,5 +3155,5 @@ SMP Negeri 5 Banda Aceh`;
             }
         }, 2000);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9944006fd2689c5d',t:'MTc2MTQxOTI5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99442e6cd572df69',t:'MTc2MTQyMTE4MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
